@@ -13,25 +13,30 @@ but ultimately it is up to you -->
   to ensure you have both services running. You may want to make use of the Gov UK Components:
   https://design-system.service.gov.uk/components/ to add tabs and so forth :) -->
 
-  {{ govukTable({
-    caption: "Tasks",
-    captionClasses: "govuk-table__caption--m",
-    firstCellIsHeader: true,
-    head: [
-      {
-        text: "Title"
-      },
-      {
-        text: "Description"
-      },
-      {
-        text: "Status"
-      },
-      {
-        text: "Due Date"
-      }
-    ],
-    rows: tasks
-  }) }}
+  <ul class="govuk-task-list">
+    {% for task in tasks2 %}
+      <li class="govuk-task-list__item govuk-task-list__item--with-link">
+        <div class="govuk-task-list__name-and-hint">
+          <a class="govuk-link govuk-task-list__link" href="/tasks/{{ task.id }}" aria-describedby="company-details-1-status">
+            {{ task.title }}
+          </a>
+          <div id="company-details-{{ task.id }}-hint" class="govuk-task-list__hint">
+            {{ task.description }}
+          </div>
+        </div>
+        <div class="govuk-task-list__status" id="company-details-{{ task.id }}-status">
+          {% if task.status === 'Completed' %}
+            {{ task.status }}
+          {% elif task.status === 'Incomplete' %}
+            <strong class="govuk-tag govuk-tag--blue">
+              Incomplete
+            </strong>
+          {% else %}
+            {{ task.status }}
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
 
 {% endblock %}
