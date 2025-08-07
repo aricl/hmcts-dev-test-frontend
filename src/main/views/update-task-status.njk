@@ -1,0 +1,25 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "template.njk" %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">{{ task.title }}</h1>
+
+  <form action="http://localhost:4000/task/{{ task.id }}/status" method="post">
+    {{ govukInput({
+        label: {
+          text: "What is the new status of this task?",
+          classes: "govuk-label--l",
+          isPageHeading: true
+        },
+        id: "task-status",
+        name: "taskStatus"
+      }) }}
+
+      {{ govukButton({
+        text: "Save and continue",
+        type: "submit"
+      }) }}
+  </form>
+{% endblock %}
