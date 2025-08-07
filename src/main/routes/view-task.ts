@@ -9,6 +9,7 @@ export default function (app: Application): void {
       const task = response.data;
 
       const formattedTask = {
+          id: task.id,
           title: task.title,
           description: task.description,
           status: task.status,
